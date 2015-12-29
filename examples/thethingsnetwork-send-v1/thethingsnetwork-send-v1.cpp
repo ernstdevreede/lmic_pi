@@ -49,7 +49,7 @@ static const u1_t ARTKEY[16] = { 0x2B, 0x7E, 0x15, 0x16, 0x28, 0xAE, 0xD2, 0xA6,
 
 // LoRaWAN end-device address (DevAddr)
 // See http://thethingsnetwork.org/wiki/AddressSpace
-static const u4_t DEVADDR = 0x02030602 ; // <-- Change this address for every node!
+static const u4_t DEVADDR = 0xffffffff ; // <-- Change this address for every node!
 
 //////////////////////////////////////////////////
 // APPLICATION CALLBACKS
@@ -79,7 +79,7 @@ lmic_pinmap pins = {
   .nss = 6,
   .rxtx = UNUSED_PIN, // Not connected on RFM92/RFM95
   .rst = 0,  // Needed on RFM92/RFM95
-  .dio = {7,4, 5}
+  .dio = {7,4,5}
 };
 
 void onEvent (ev_t ev) {

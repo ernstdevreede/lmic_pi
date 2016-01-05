@@ -81,7 +81,6 @@ struct timespec tstart={0,0};
 static void hal_time_init () {
     int res=clock_gettime(CLOCK_MONOTONIC_RAW, &tstart);
     tstart.tv_nsec=0;
-    fprintf(stderr, "Init clock: %d (%d)\n", res, errno);
 }
 
 u4_t hal_ticks (void) {
@@ -89,9 +88,9 @@ u4_t hal_ticks (void) {
     struct timespec ts;
     clock_gettime(CLOCK_MONOTONIC_RAW, &ts);
     ts.tv_sec-=tstart.tv_sec;
-    time_t micros=(ts.tv_sec*1000000+ts.tv_nsec/1000)/US_PER_OSTICK;
-//    fprintf(stderr, "hal_ticks()=%d\n", micros);
-    return (u4_t)micros;
+    u8_t ticks=ts.tv_sec*(1000000/US_PER_OSTICK);
+//    fprintf(stderr, "%d hal_ticks()=%d\n", sizeof(time_t), ticks);
+    return (u4_t)ticks;
 }
 
 // Returns the number of ticks until time.
@@ -121,7 +120,7 @@ void hal_waitUntil (u4_t time) {
 // check and rewind for target time
 u1_t hal_checkTimer (u4_t time) {
     // No need to schedule wakeup, since we're not sleeping
-    fprintf(stderr, "hal_checkTimer(%d):%d (%d)\n", time,  delta_time(time), hal_ticks());
+//    fprintf(stderr, "hal_checkTimer(%d):%d (%d)\n", time,  delta_time(time), hal_ticks());
     return delta_time(time) <= 0;
 }
 

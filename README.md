@@ -11,13 +11,21 @@ Some of the changes were taken from or inspired by the arduino-lmic-v1.5 port of
 The connections of the pins are defined in the main programs in the examples directory.
 Standard connections are:
   WiringPi 6  == nss
+  
   not connected == rxtx: not used for RFM95
+  
   WiringPi 0 == reset (needed for RFM92/RFM95)
+  
   WiringPi 7,4,5 == dio0, dio1, dio2
+  
   WiringPi 12 == MOSI
+  
   WiringPi 13 == MISO
+  
   WiringPi 14 == SCK
+  
   GND  == GND
+  
   3.3V  == +3.3V
   
 The only examples currently implemented are hello (which does nothing) and thethingsnetwork-send-v1 which sends test strings to the TTN network (if a gateway is in reach).

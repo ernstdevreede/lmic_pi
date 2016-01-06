@@ -80,7 +80,7 @@ u1_t hal_spi (u1_t out) {
 struct timespec tstart={0,0};
 static void hal_time_init () {
     int res=clock_gettime(CLOCK_MONOTONIC_RAW, &tstart);
-    tstart.tv_nsec=0;
+    tstart.tv_nsec=0; //Makes difference calculations in hal_ticks() easier
 }
 
 u4_t hal_ticks (void) {
@@ -88,7 +88,7 @@ u4_t hal_ticks (void) {
     struct timespec ts;
     clock_gettime(CLOCK_MONOTONIC_RAW, &ts);
     ts.tv_sec-=tstart.tv_sec;
-    u8_t ticks=ts.tv_sec*(1000000/US_PER_OSTICK);
+    u8_t ticks=ts.tv_sec*(1000000/US_PER_OSTICK)+ts.tv_nsec/(1000*US_PER_OSTICK);
 //    fprintf(stderr, "%d hal_ticks()=%d\n", sizeof(time_t), ticks);
     return (u4_t)ticks;
 }
